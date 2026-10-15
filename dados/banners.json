@@ -1,6 +1,6 @@
 {
   "_como_usar": "Para ativar um banner, preencha img (caminho da imagem dentro de assets/banners/), link e alt. Enquanto img estiver vazio, o site mostra 'Anuncie aqui'.",
-  "topo":     { "tamanho": "1200 × 140", "img": ""link": ""alt": "" },
+  "topo":     { "tamanho": "1200 × 140", "img": "", "link": "", "alt": "" },
   "lista":    { "tamanho": "728 × 90",   "img": "", "link": "", "alt": "" },
   "lateral1": { "tamanho": "300 × 250",  "img": "", "link": "", "alt": "" },
   "lateral2": { "tamanho": "300 × 600",  "img": "", "link": "", "alt": "" },
