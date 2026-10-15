@@ -291,3 +291,9 @@ h1.titulo { margin: 0; font-family: var(--serif); font-weight: 600; font-size: c
   .gal-stage { aspect-ratio: 4 / 3; }
   .gal-thumb { width: 78px; height: 54px; }
 }
+
+/* comunidades e grupos */
+.aviso-mae { margin: 6px 0 2px; font-size: 14px; color: var(--suave); }
+.aviso-mae a { color: var(--azul); font-weight: 600; }
+a.chip { text-decoration: none; color: var(--azul); }
+a.chip:hover { border-color: var(--ouro); }
