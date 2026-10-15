@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="Ilustração de exemplo: fachada de uma igreja">
+<defs>
+<linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FA6D6"/><stop offset="1" stop-color="#F3E7CC"/></linearGradient>
+<linearGradient id="chao" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9BFA4"/><stop offset="1" stop-color="#A99F86"/></linearGradient>
+</defs>
+<rect width="1200" height="750" fill="url(#ceu)"/>
+<circle cx="1010" cy="140" r="58" fill="#FFF4D6" opacity=".9"/>
+<ellipse cx="220" cy="130" rx="130" ry="30" fill="#fff" opacity=".7"/><ellipse cx="330" cy="150" rx="90" ry="24" fill="#fff" opacity=".6"/>
+<rect y="600" width="1200" height="150" fill="url(#chao)"/>
+<rect x="250" y="330" width="560" height="290" fill="#F2EAD7"/>
+<path d="M230 335L530 190L830 335Z" fill="#B65F45"/>
+<path d="M270 330L530 205L790 330Z" fill="#F7F0DF"/>
+<rect x="150" y="260" width="130" height="360" fill="#EADFC7"/>
+<path d="M135 265L215 95L295 265Z" fill="#8F4A38"/>
+<rect x="200" y="40" width="30" height="62" fill="#C9A24B"/><rect x="182" y="58" width="66" height="22" fill="#C9A24B"/>
+<path d="M190 330v-60a25 25 0 0 1 50 0v60z" fill="#3B3F52"/>
+<rect x="500" y="215" width="60" height="14" fill="#C9A24B" opacity="0"/>
+<rect x="515" y="150" width="30" height="64" fill="#C9A24B" transform="translate(0,-4)"/><rect x="497" y="168" width="66" height="22" fill="#C9A24B" transform="translate(0,-4)"/>
+<path d="M470 620v-170a60 60 0 0 1 120 0v170z" fill="#5A3A28"/>
+<path d="M530 620V450" stroke="#3A2418" stroke-width="4"/>
+<path d="M310 520v-70a32 32 0 0 1 64 0v70z" fill="#3B5B8A"/><path d="M686 520v-70a32 32 0 0 1 64 0v70z" fill="#3B5B8A"/>
+<circle cx="530" cy="300" r="34" fill="#3B5B8A"/><circle cx="530" cy="300" r="34" fill="none" stroke="#C9A24B" stroke-width="6"/>
+<rect x="420" y="620" width="220" height="14" fill="#D9CFB4"/><rect x="400" y="634" width="260" height="14" fill="#CFC4A8"/><rect x="380" y="648" width="300" height="14" fill="#C4B99D"/>
+<g fill="#4E7A4E"><circle cx="90" cy="610" r="48"/><circle cx="1110" cy="610" r="52"/><circle cx="1030" cy="630" r="38"/></g>
+<rect x="18" y="18" width="250" height="38" rx="19" fill="#17305E" opacity=".85"/><text x="143" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" letter-spacing="1.5">FOTO DE EXEMPLO</text>
+</svg>

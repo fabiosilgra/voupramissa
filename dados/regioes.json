@@ -1,0 +1,39 @@
+{
+  "_como_usar": "Define o menu de regiões. Para criar uma nova região, acrescente o nome na lista do estado e use exatamente o mesmo nome na coluna 'regiao' de igrejas.csv.",
+  "macro": [
+    { "nome": "Sudeste", "estados": ["SP", "RJ", "MG", "ES"] },
+    { "nome": "Sul", "estados": ["PR", "SC", "RS"] },
+    { "nome": "Nordeste", "estados": ["BA", "CE", "PE", "PB", "MA", "AL", "SE", "RN", "PI"] },
+    { "nome": "Centro-Oeste", "estados": ["GO", "DF", "MT", "MS"] },
+    { "nome": "Norte", "estados": ["AM", "PA", "RO", "AC", "AP", "TO", "RR"] }
+  ],
+  "estados": {
+    "SP": { "nome": "São Paulo", "regioes": ["Zona Norte", "Zona Sul", "Zona Leste", "Zona Oeste", "Centro", "ABC", "Guarulhos", "Grande SP", "Campinas e Região", "Litoral", "Interior", "Vale do Paraíba"] },
+    "RJ": { "nome": "Rio de Janeiro", "regioes": ["Rio de Janeiro e Região", "Outras Regiões"] },
+    "MG": { "nome": "Minas Gerais", "regioes": ["Belo Horizonte e Região", "Triângulo Mineiro", "Outras Regiões"] },
+    "ES": { "nome": "Espírito Santo", "regioes": ["Vitória e Região"] },
+    "PR": { "nome": "Paraná", "regioes": ["Curitiba", "Londrina e Região", "Maringá e Região", "Foz do Iguaçu e Região", "Outras Regiões"] },
+    "SC": { "nome": "Santa Catarina", "regioes": ["Florianópolis e Região"] },
+    "RS": { "nome": "Rio Grande do Sul", "regioes": ["Porto Alegre", "Outras Regiões"] },
+    "BA": { "nome": "Bahia", "regioes": ["Salvador e Região", "Outras Regiões"] },
+    "CE": { "nome": "Ceará", "regioes": ["Fortaleza", "Outras Regiões"] },
+    "PE": { "nome": "Pernambuco", "regioes": ["Recife", "Outras Regiões"] },
+    "PB": { "nome": "Paraíba", "regioes": ["João Pessoa"] },
+    "MA": { "nome": "Maranhão", "regioes": ["São Luís"] },
+    "AL": { "nome": "Alagoas", "regioes": ["Maceió"] },
+    "SE": { "nome": "Sergipe", "regioes": ["Aracaju"] },
+    "RN": { "nome": "Rio Grande do Norte", "regioes": ["Natal"] },
+    "PI": { "nome": "Piauí", "regioes": ["Teresina"] },
+    "GO": { "nome": "Goiás", "regioes": ["Goiânia e Região", "Sudoeste e Sul Goiano", "Outras Regiões"] },
+    "DF": { "nome": "Distrito Federal", "regioes": ["Distrito Federal e Região"] },
+    "MT": { "nome": "Mato Grosso", "regioes": ["Cuiabá"] },
+    "MS": { "nome": "Mato Grosso do Sul", "regioes": ["Campo Grande"] },
+    "AM": { "nome": "Amazonas", "regioes": ["Manaus"] },
+    "PA": { "nome": "Pará", "regioes": ["Belém"] },
+    "RO": { "nome": "Rondônia", "regioes": ["Porto Velho"] },
+    "AC": { "nome": "Acre", "regioes": ["Rio Branco"] },
+    "AP": { "nome": "Amapá", "regioes": ["Macapá"] },
+    "TO": { "nome": "Tocantins", "regioes": ["Palmas"] },
+    "RR": { "nome": "Roraima", "regioes": ["Boa Vista"] }
+  }
+}

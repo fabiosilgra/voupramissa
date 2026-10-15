@@ -1,0 +1,17 @@
+{
+  "nome": "Vou pra Missa",
+  "slogan": "Encontre a missa mais perto de você",
+  "siteUrl": "https://voupramissa.com.br",
+  "dominio": "voupramissa.com.br",
+  "usarDominioProprio": false,
+  "basePath": "",
+  "lancado": false,
+  "whatsapp": "5511999999999",
+  "email": "contato@voupramissa.com.br",
+  "instagram": "https://www.instagram.com/voupramissa",
+  "formularioCadastro": "",
+  "fontes": {
+    "igrejas": "dados/igrejas.csv",
+    "horarios": "dados/horarios.csv"
+  }
+}

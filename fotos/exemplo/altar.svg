@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="Ilustração de exemplo: altar com vitrais">
+<defs>
+<linearGradient id="fundo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E2B4D"/><stop offset="1" stop-color="#3B4F80"/></linearGradient>
+<radialGradient id="halo" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#FFF1C4" stop-opacity=".9"/><stop offset="1" stop-color="#FFF1C4" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="750" fill="url(#fundo)"/>
+<rect width="1200" height="750" fill="url(#halo)"/>
+<g>
+<path d="M120 520v-300a80 80 0 0 1 160 0v300z" fill="#2F6BA8"/><path d="M120 400h160M120 300h160M200 140v380" stroke="#F6C453" stroke-width="6"/>
+<path d="M320 520v-340a80 80 0 0 1 160 0v340z" fill="#B4452F"/><path d="M320 420h160M320 320h160M400 100v420" stroke="#F6C453" stroke-width="6"/>
+<path d="M720 520v-340a80 80 0 0 1 160 0v340z" fill="#2F8F6B"/><path d="M720 420h160M720 320h160M800 100v420" stroke="#F6C453" stroke-width="6"/>
+<path d="M920 520v-300a80 80 0 0 1 160 0v300z" fill="#C9A24B"/><path d="M920 400h160M920 300h160M1000 140v380" stroke="#8A6A1E" stroke-width="6"/>
+</g>
+<path d="M500 520v-260a100 100 0 0 1 200 0v260z" fill="#F3E7C8"/>
+<rect x="592" y="170" width="16" height="190" fill="#8F4A38"/><rect x="545" y="215" width="110" height="16" fill="#8F4A38"/>
+<rect x="150" y="520" width="900" height="40" fill="#E9DFC3"/>
+<rect x="420" y="520" width="360" height="110" fill="#FFFFFF"/><rect x="400" y="500" width="400" height="24" fill="#F2EAD7"/>
+<rect x="420" y="560" width="360" height="12" fill="#C9A24B"/>
+<g><rect x="450" y="450" width="14" height="52" fill="#FFF8E6"/><ellipse cx="457" cy="440" rx="8" ry="14" fill="#F6C453"/>
+<rect x="736" y="450" width="14" height="52" fill="#FFF8E6"/><ellipse cx="743" cy="440" rx="8" ry="14" fill="#F6C453"/></g>
+<rect x="0" y="630" width="1200" height="120" fill="#6B4E36"/>
+<path d="M440 630H760L880 750H320Z" fill="#8E2F3A"/>
+<rect x="18" y="18" width="250" height="38" rx="19" fill="#17305E" opacity=".85"/><text x="143" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" letter-spacing="1.5">FOTO DE EXEMPLO</text>
+</svg>
