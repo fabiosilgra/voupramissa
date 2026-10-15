@@ -101,18 +101,28 @@ for (const r of rowsI) {
     exemplo: sim(r.exemplo),
     fotos: parseLista(r.fotos),
     clero: parseClero(r.clero),
-    horarios: { missa: [], confissao: [], secretaria: [], adoracao: [] }
+    horarios: { missa: [], confissao: [], secretaria: [], adoracao: [], grupo: [] }
   });
 }
 const porId = Object.fromEntries(igrejas.map((c) => [c.id, c]));
+// Comunidades: coluna "paroquia_mae" liga a comunidade à paróquia
+for (const c of igrejas) c.filhas = [];
+for (const c of igrejas) {
+  const mid = (c.paroquia_mae || '').trim();
+  if (!mid) continue;
+  const m = porId[mid];
+  if (!m) { warn(`"${c.nome}" (${c.id}): paroquia_mae "${mid}" não existe ou ainda não está com publicar = SIM.`); continue; }
+  if (m.id === c.id) { warn(`"${c.nome}" (${c.id}): paroquia_mae não pode ser a própria igreja.`); continue; }
+  c.mae = m; m.filhas.push(c);
+}
 
-const TIPOS_HOR = { missa: 'Missas', confissao: 'Confissões', secretaria: 'Secretaria', adoracao: 'Adoração' };
+const TIPOS_HOR = { missa: 'Missas', confissao: 'Confissões', secretaria: 'Secretaria', adoracao: 'Adoração', grupo: 'Grupos e pastorais' };
 for (const h of rowsH) {
   const c = porId[h.id_igreja];
   const ref = `horarios.csv (${h.id_igreja} · ${h.tipo} · ${h.dias} · ${h.hora})`;
   if (!c) { warn(`${ref}: não existe igreja com esse id em igrejas.csv.`); continue; }
   const tipo = slugify(h.tipo || 'missa').replace(/^confissoes$/, 'confissao').replace(/^missas$/, 'missa');
-  if (!TIPOS_HOR[tipo]) { warn(`${ref}: tipo desconhecido (use missa, confissao, secretaria ou adoracao).`); continue; }
+  if (!TIPOS_HOR[tipo]) { warn(`${ref}: tipo desconhecido (use missa, confissao, secretaria, adoracao ou grupo).`); continue; }
   const dias = parseDias(h.dias);
   if (!dias.length) { warn(`${ref}: não entendi os dias "${h.dias}" (exemplos: seg-sex, dom, ter,qui).`); continue; }
   const faixa = parseFaixa(h.hora);
@@ -507,6 +517,20 @@ ${fotos.length > 1 ? `<div class="gal-thumbs">${fotos.map((f, i) => `<a class="g
     for (const l of agrupar(c.horarios[t])) outros.push(linhaHtml(l, TIPOS_HOR[t]));
   }
 
+  // Grupos e pastorais com horário (não entram no "Missa hoje")
+  const grupos = [...c.horarios.grupo].sort((a, b) => DIAS.indexOf(a.dias[0]) - DIAS.indexOf(b.dias[0]) || a.faixa.a - b.faixa.a);
+  const gruposHtml = grupos.length
+    ? `<section class="secao"><h2>Grupos e pastorais</h2><table class="horarios"><tbody>${grupos.map((g) =>
+      `<tr data-dias="${g.dias.map(jsDia).join(',')}"><th scope="row">${esc(g.obs || 'Grupo')}<small>${esc(labelDias(g.dias))}</small></th><td><span class="hora">${fmtFaixa(g.faixa)}</span></td></tr>`).join('')}</tbody></table></section>`
+    : '';
+  const filhasOrd = [...c.filhas].sort((a, b) => a.nome.localeCompare(b.nome, 'pt'));
+  const comunidadesHtml = filhasOrd.length
+    ? `<section class="secao"><h2>Comunidades desta paróquia</h2><p style="color:#5A6478;margin-top:0">As missas e o endereço de cada comunidade estão na página dela.</p><div class="chips-simples">${filhasOrd.map((f) => `<a class="chip" href="${CTX.u(`igreja/${f.slug}/`)}">${esc(f.nome)} · ${esc(f.bairro)}</a>`).join('')}</div></section>`
+    : '';
+  const maeHtml = c.mae
+    ? `<div class="aviso-mae">Faz parte da <a href="${CTX.u(`igreja/${c.mae.slug}/`)}">${esc(c.mae.nome)}</a>${c.mae.bairro ? ` (${esc(c.mae.bairro)})` : ''}.</div>`
+    : '';
+
   const paragrafos = (c.sobre || '').split(/\n+/).filter(Boolean);
   const sobre = paragrafos.length
     ? paragrafos.map((p) => `<p>${esc(p)}</p>`).join('')
@@ -524,7 +548,7 @@ ${c.exemplo ? '<div class="aviso-ex"><strong>Dados de exemplo.</strong> Nome, se
 <div class="ficha-info"><span class="avatar">${c.capa ? `<img src="${esc(fotoSrc(c.capa))}" alt="">` : svgIgreja(54)}</span>
 <div style="min-width:0;display:flex;flex-direction:column"><h1>${esc(c.nome)}</h1>
 <div class="tipo">${esc(tipoLabel(c))}${c.setor ? ` · Setor ${esc(c.setor)}` : ''} · ${esc(c.diocese)}</div>
-<ul class="contatos">${contatos}</ul>${selo}</div></div>
+${maeHtml}<ul class="contatos">${contatos}</ul>${selo}</div></div>
 <div class="ficha-acoes">
 <div class="proxbox js-proxima-box" data-missas="${esc(c.tokens)}">${ICON.clock}<div><div class="pb-label">Horários</div><div class="pb-time">a confirmar</div></div></div>
 <a class="btn" href="${mapaUrl}" target="_blank" rel="noopener">Como chegar</a>
@@ -535,7 +559,8 @@ ${c.exemplo ? '<div class="aviso-ex"><strong>Dados de exemplo.</strong> Nome, se
 ${galeria}
 <section class="secao"><div class="secao-cab"><h2>Horários de missa</h2>${seloConfirmacao(c, true)}</div>${missas.length ? `<table class="horarios"><tbody>${missas.map((l) => linhaHtml(l)).join('')}</tbody></table>` : '<p style="color:#5A6478">A paróquia ainda não informou os horários de missa.</p>'}</section>
 ${outros.length ? `<section class="secao"><h2>Confissões e atendimento</h2><table class="horarios"><tbody>${outros.join('')}</tbody></table></section>` : ''}
-<section class="secao"><h2>Sobre a paróquia</h2>${sobre}${clero}${pastorais.length ? `<h3 class="sub-tit">Pastorais e grupos</h3><div class="chips-simples">${pastorais.map((p) => `<span class="chip">${esc(p)}</span>`).join('')}</div>` : ''}</section>
+${gruposHtml}${comunidadesHtml}
+<section class="secao"><h2>Sobre a paróquia</h2>${sobre}${clero}${pastorais.length ? `<h3 class="sub-tit">Pastorais e movimentos</h3><div class="chips-simples">${pastorais.map((p) => `<span class="chip">${esc(p)}</span>`).join('')}</div>` : ''}</section>
 <section class="secao" id="mapa"><h2>Como chegar</h2><p>${esc(c.endereco || `${c.bairro}, ${c.cidade} - ${c.uf}`)}</p><div class="mapa-links"><a class="btn" href="${mapaUrl}" target="_blank" rel="noopener">Abrir no Google Maps</a><a class="btn sec" href="${wazeUrl}" target="_blank" rel="noopener">Rota no Waze</a></div></section>
 <section class="nota"><div><strong>Algo desatualizado?</strong> Os horários podem mudar em feriados e datas especiais. Confirme com a paróquia e nos ajude a manter tudo correto.</div><a class="btn" href="${esc(wa(`Quero corrigir informações da ${c.nome} (${c.bairro}) no Vou pra Missa: ${urlAbs}`))}" target="_blank" rel="noopener">Informar correção</a></section>
 </div>

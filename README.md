@@ -84,3 +84,8 @@ Feriados e datas especiais ainda não são tratados (aparece o aviso para confir
 ## Planilha única (Excel)
 
 O site lê `dados/vou-pra-missa.xlsx` (abas **Leia-me**, **Igrejas** e **Horarios**). Só entram no site as igrejas com `publicar = SIM`. Se nenhuma estiver marcada, o site usa os dados de exemplo em `dados/igrejas.csv`. Horas podem ser `19:30`, `19h30` ou células de hora do Excel; datas podem ser `15/10/2026`.
+
+## Comunidades e grupos
+
+- **Comunidade**: crie uma linha própria na aba Igrejas (`tipo = Comunidade`, endereço e horários próprios) e preencha a coluna `paroquia_mae` com o id da paróquia. A página da paróquia ganha "Comunidades desta paróquia" e a da comunidade mostra "Faz parte da ...". A paróquia-mãe precisa estar com `publicar = SIM`.
+- **Grupos e pastorais com horário**: na aba Horarios use `tipo = grupo` e escreva o nome do grupo em `obs`. Aparecem em "Grupos e pastorais" e não entram no "Missa hoje".
