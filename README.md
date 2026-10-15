@@ -80,3 +80,7 @@ Feriados e datas especiais ainda não são tratados (aparece o aviso para confir
 ## Conferir no computador
 
 `node build.mjs --preview` gera a pasta `dist-preview/`; abra `dist-preview/index.html` no navegador.
+
+## Planilha única (Excel)
+
+O site lê `dados/vou-pra-missa.xlsx` (abas **Leia-me**, **Igrejas** e **Horarios**). Só entram no site as igrejas com `publicar = SIM`. Se nenhuma estiver marcada, o site usa os dados de exemplo em `dados/igrejas.csv`. Horas podem ser `19:30`, `19h30` ou células de hora do Excel; datas podem ser `15/10/2026`.

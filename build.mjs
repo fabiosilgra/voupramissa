@@ -11,6 +11,7 @@ import {
   esc, slugify, sim, parseCSV, parseDias, labelDias, jsDia, DIAS,
   parseFaixa, fmtFaixa, hhmm, fmtData, parseLista, parseClero, ehUrl, fmtDataCurta, idadeDias
 } from './build/lib.mjs';
+import { lerXlsx, horaExcel, dataExcel } from './build/xlsx.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -47,8 +48,35 @@ for (const m of geo.macro) {
   }
 }
 
-const rowsI = parseCSV(await readSource(cfg.fontes.igrejas));
-const rowsH = parseCSV(await readSource(cfg.fontes.horarios));
+let rowsI, rowsH;
+let despublicadas = 0;
+const arqPlanilha = cfg.fontes.planilha || 'dados/vou-pra-missa.xlsx';
+let planilha = !/^https?:/.test(arqPlanilha) && fs.existsSync(path.join(ROOT, arqPlanilha));
+if (planilha) {
+  // Fonte principal: planilha Excel única (abas "Igrejas" e "Horarios")
+  const abas = lerXlsx(fs.readFileSync(path.join(ROOT, arqPlanilha)));
+  const achar = (n) => abas[Object.keys(abas).find((k) => slugify(k) === n)];
+  const aI = achar('igrejas'), aH = achar('horarios');
+  if (!aI || !aH) throw new Error('A planilha precisa ter as abas "Igrejas" e "Horarios".');
+  const txt = (o, dataCols = [], horaCols = []) => Object.fromEntries(Object.entries(o).map(([k, v]) =>
+    [k, dataCols.includes(k) ? dataExcel(v) : horaCols.includes(k) ? horaExcel(v) : String(v ?? '').trim()]));
+  rowsI = aI.map((o) => txt(o, ['confirmado_em']));
+  rowsH = aH.map((o) => txt(o, [], ['hora']));
+  // só entra no site quem tem "publicar" = sim
+  const antes = rowsI.length;
+  rowsI = rowsI.filter((r) => sim(r.publicar));
+  despublicadas = antes - rowsI.length;
+  const pub = new Set(rowsI.map((r) => r.id));
+  rowsH = rowsH.filter((r) => pub.has(r.id_igreja));
+  if (!rowsI.length) {
+    planilha = false;
+    warn('A planilha ainda não tem nenhuma igreja com "publicar = sim"; o site usou os dados de exemplo (dados/igrejas.csv).');
+  }
+}
+if (!planilha) {
+  rowsI = parseCSV(await readSource(cfg.fontes.igrejas));
+  rowsH = parseCSV(await readSource(cfg.fontes.horarios));
+}
 
 const ids = new Set();
 const slugs = new Set();
@@ -631,6 +659,7 @@ gravar('.nojekyll', '');
 /* Resumo */
 console.log(`\nVou pra Missa — site gerado em ${path.relative(process.cwd(), OUT) || '.'}/`);
 console.log(`  ${plural(igrejas.length, 'igreja', 'igrejas')} · ${paginas.length} páginas${PREVIEW ? ' · modo preview (abre direto no computador)' : ''}`);
+if (planilha) console.log(`  Fonte: ${arqPlanilha} · ${despublicadas} linhas sem "publicar = sim" ficaram de fora.`);
 if (!cfg.lancado) console.log('  Aviso: "lancado" está false em dados/config.json — o Google NÃO vai indexar o site (bom para testes).');
 if (avisos.length) {
   console.log(`\n  ${plural(avisos.length, 'aviso', 'avisos')} nos dados:`);
